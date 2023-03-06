@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <link rel="stylesheet" href="../css/reset.css" />
+  <link rel="stylesheet" href="../css/index.css" />
+  <link rel="stylesheet" href="../css/table.css" />
+  <title>Music Library UI | Add Artist</title>
+</head>
+<body>
+  <nav>
+    <h1>Music Library</h1>
+    <a href="index.html" class="action-btn-cs">Artists</a>
+    <a href="html/artist-add.html" class="action-btn-cs">Add Artist +</a>
+  </nav>
+  <main>
+    <div id="content-container">
+      <div class="content-card" >
+        <h1 id="artist-header">Create an Album</h1>
+        <div class = column-container>
+          <form onsubmit="addAlbum(event)" id="form" >
+            <table class="rwd-table">
+              <tbody>
+                <tr>
+                  <td> 
+                    <label for="albumNameField">Name:</label>
+                  </td>
+                  <td> 
+                    <input type="text" id="albumNameField" name="name" />
+                  </td>
+                </tr>
+                <tr>
+                  <td> 
+                    <label for="albumYearField">Year:</label>
+                  </td>
+                  <td> 
+                    <input type="number" id="albumYearField" name="genre" />
+                  </td>
+                </tr>
+                <tr>
+                  <td> 
+                    <label for="albumCoverField">Cover:</label>
+                  </td>
+                  <td> 
+                    <input type="file" name="albumCoverField" id="albumCoverField">
+                  </td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td> 
+                    <input type="submit" value="Submit" class="action-btn-cs">
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+        </form>
+    </main>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+<script src="../js/artists/get-artist.js"></script>
+<script src="../js/albums/post-album.js"></script>
+<script>
+
+  const addAlbum = (event) => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const artistId = urlParams.get('artistId');
+
+    postAlbum(event, artistId);
+  }
+  // immediately invoked function expression - IIFE
+  (async () => {
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const artistId = urlParams.get('artistId');
+
+    const artist = artistId ? await getArtist(artistId) : null;
+
+    if (artist.name) {
+      var title = document.getElementById("artist-header");
+      title.textContent = `Create an Album for ${artist.name}`;
+    }
+
+  })()
+</script>
+</html>

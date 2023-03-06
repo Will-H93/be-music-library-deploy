@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/reset.css" />
+  <link rel="stylesheet" href="css/index.css" />
+  <link rel="stylesheet" href="css/table.css" />  
+  <title>Music Library UI</title>
+</head>
+<body>
+  <nav>
+    <h1>Music Library</h1>
+    <a href="index.html" class="action-btn-cs">Artists</a>
+    <a href="html/artist-add.html" class="action-btn-cs">Add Artist +</a>
+  </nav>
+  <main>
+    <div id="content-container"></div>
+  </main>
+</body>
+<script src="js/artists/get-artists.js"></script>
+<script>
+  // immediately invoked function expression - IIFE
+  (async () => {
+    const artists = await getArtists();
+    const container = document.getElementById('content-container');
+
+    var artistsElement = document.createElement('h1')
+    artistsElement.id = "artist-header"
+    artistsElement.textContent = 'Artists';
+
+    container.appendChild(artistsElement)
+
+    if (artists.length == 0) {
+      var noArtistsElement = document.createElement('h1')
+      noArtistsElement.textContent = 'There are no artists at the moment.';
+
+      container.appendChild(noArtistsElement)
+    } else {
+      var table = document.createElement("table");
+      table.className = "rwd-table";
+       
+      var tableBody = document.createElement("tbody");
+
+      artists.forEach(artist => {
+        const { imageUrl, name, id } = artist;
+
+        const artistRowElement = document.createElement('tr');
+        // First column
+
+        const firstColumn = document.createElement('td');
+        const artistNameLinkElement = document.createElement('a');
+        artistNameLinkElement.text = name;
+        artistNameLinkElement.href = `http://${window.location.host}/html/artist-profile.html?artistId=${id}`
+
+        firstColumn.appendChild(artistNameLinkElement);
+
+        // Second column 
+        const secondColumn = document.createElement('td');
+        secondColumn.className = "right-aligned";
+
+        const viewArtistLinkElement = document.createElement('a');
+        viewArtistLinkElement.textContent = "View 🔍";
+        viewArtistLinkElement.className = "action-btn-cs";
+        viewArtistLinkElement.href = `http://${window.location.host}/html/artist-profile.html?artistId=${id}`
+
+        const editArtistLinkElement = document.createElement('a');
+        editArtistLinkElement.textContent = "Edit ✏️";
+        editArtistLinkElement.className = "action-btn-cs";
+        editArtistLinkElement.href = `http://${window.location.host}/html/artist-edit.html?artistId=${id}`
+
+
+        const addAlbumForArtistLinkElement = document.createElement('a');
+        addAlbumForArtistLinkElement.textContent = `Add Album +`;
+        addAlbumForArtistLinkElement.className = "action-btn-cs";
+        addAlbumForArtistLinkElement.href = `http://${window.location.host}/html/album-add.html?artistId=${id}`
+
+        secondColumn.appendChild(viewArtistLinkElement);
+        secondColumn.appendChild(editArtistLinkElement);
+        secondColumn.appendChild(addAlbumForArtistLinkElement);
+
+        // Add columns to row
+        artistRowElement.appendChild(firstColumn);
+        artistRowElement.appendChild(secondColumn)
+
+        // Add row to table body
+        tableBody.appendChild(artistRowElement);
+      });
+    }
+    
+    table.appendChild(tableBody);
+
+    container.appendChild(table);
+  })()
+</script>
+</html>

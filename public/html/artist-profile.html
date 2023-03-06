@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/reset.css" />
+  <link rel="stylesheet" href="../css/index.css" />
+  <link rel="stylesheet" href="../css/table.css" />
+  <link rel="stylesheet" href="../css/album-card.css" />
+  <title>Music Library UI</title>
+</head>
+<body>
+  <nav>
+    <h1>Music Library</h1>
+    <a href="../index.html" class="action-btn-cs">Artists</a>
+    <a href="artist-add.html" class="action-btn-cs">Add Artist +</a>
+  </nav>
+  <main>
+    <div id="content-container"></div>
+  </main>
+</body>
+<script src="../js/artists/get-artist.js"></script>
+<script src="../js/artists/delete-artist.js"></script>
+<script src="../js/albums/get-albums.js"></script>
+<script>
+  // immediately invoked function expression - IIFE
+  (async () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const artistId = urlParams.get('artistId');
+
+    const artist = artistId ? await getArtist(artistId) : null;
+    const albums = artistId ? await getAlbums(artistId) : null
+
+    var container = document.getElementById('content-container');
+    console.log(artist);
+
+    if (artist.id) {
+      // Artist Details
+      var artistNameHeaderElement = document.createElement('h1');
+      artistNameHeaderElement.textContent = `${artist.name}`;
+      artistNameHeaderElement.id = "artist-header";
+
+      var artistGenreHeaderElement = document.createElement('a');
+      artistGenreHeaderElement.text = `${artist.genre}`;
+      artistGenreHeaderElement.className = `action-btn-cs highlight`;
+
+      artistNameHeaderElement.appendChild(artistGenreHeaderElement);
+
+      container.appendChild(artistNameHeaderElement);
+
+      const editArtistLinkElement = document.createElement('a');
+      editArtistLinkElement.textContent = "Edit ✏️";
+      editArtistLinkElement.className = "action-btn-cs";
+      editArtistLinkElement.href = `http://${window.location.host}/html/artist-edit.html?artistId=${artist.id}`
+
+      const addAlbumForArtistElement = document.createElement('a');
+      addAlbumForArtistElement.text = `Add album +`;
+      addAlbumForArtistElement.className = `action-btn-cs`;
+      addAlbumForArtistElement.href = `http://${window.location.host}/html/album-add.html?artistId=${artist.id}`
+
+      const deleteArtistLinkElement = document.createElement('a');
+      deleteArtistLinkElement.textContent = "Delete";
+      deleteArtistLinkElement.className = "action-btn-cs destroy right-aligned";
+      deleteArtistLinkElement.onclick = () => { deleteArtist(artist.id); }
+
+      container.appendChild(editArtistLinkElement);
+      container.appendChild(addAlbumForArtistElement);
+      container.appendChild(deleteArtistLinkElement);
+
+      if (albums.length > 0) {
+        // Artist Albums
+        const albumsHeaderElement = document.createElement('h2');
+        albumsHeaderElement.textContent = "Albums";
+        container.appendChild(albumsHeaderElement);
+
+        var albumsContainer = document.createElement("div");
+        albumsContainer.id = "albums-container";
+
+        albums.forEach(album => {
+
+
+        const cardItem = document.createElement("div");
+        cardItem.className = "album-card_item";
+
+        const linkItem = document.createElement("a");
+        linkItem.className = "album_card_item_link";
+
+        const albumCoverElement = document.createElement('img');
+        albumCoverElement.className = "album-cover";
+        albumCoverElement.src = album.cover_image ? album.cover_image : 'https://www.theatromarrakech.com/wp-content/plugins/urvenue-plugin/images/placeholder.artist.jpg';
+
+
+        const albumTitleItem = document.createElement("div");
+        albumTitleItem.className = "album-card-item_title";
+        albumTitleItem.textContent = album.name;
+
+
+        const albumDateItem = document.createElement("div");
+        albumDateItem.className = "album-card-item_date-box";
+        albumDateItem.textContent = "Released:";
+
+        const albumDateReleasedItem = document.createElement("span");
+        albumDateReleasedItem.textContent = album.year;
+        albumDateReleasedItem.className = "album-card-item_date";
+        albumDateItem.appendChild(albumDateReleasedItem);
+
+        
+        cardItem.appendChild(albumCoverElement);
+        cardItem.appendChild(linkItem);
+        cardItem.appendChild(albumTitleItem);
+        cardItem.appendChild(albumDateItem);
+
+        albumsContainer.appendChild(cardItem);
+         
+        });
+
+        container.appendChild(albumsContainer);
+      } else {
+        const albumsHeaderElement = document.createElement('h2')
+        albumsHeaderElement.textContent = `No albums for ${artist.name}`;
+
+        const addAlbumForArtistElement = document.createElement('a');
+        addAlbumForArtistElement.text = `Add album +`;
+        addAlbumForArtistElement.className = `action-btn-cs`;
+        addAlbumForArtistElement.href = `http://${window.location.host}/html/album-add.html?artistId=${artist.id}`
+
+        container.appendChild(albumsHeaderElement);
+        container.appendChild(addAlbumForArtistElement);
+      }
+
+    } else {
+        var noArtistElement = document.createElement('h1')
+        noArtistElement.text = `${artist.message}`;
+        container.appendChild(noArtistElement)
+    }
+  })();
+</script>
+</html>

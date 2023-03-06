@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <link rel="stylesheet" href="../css/reset.css" />
+  <link rel="stylesheet" href="../css/index.css" />
+  <link rel="stylesheet" href="../css/table.css" />
+  <title>Music Library UI | Add Artist</title>
+</head>
+<body>
+  <nav>
+    <h1>Music Library</h1>
+    <a href="index.html" class="action-btn-cs">Artists</a>
+    <a href="html/artist-add.html" class="action-btn-cs">Add Artist +</a>
+  </nav>
+  <main>
+    <div id="content-container">
+      <div class="content-card" >
+        <h1 id="artist-header">Create an Artist</h1>
+        <div class = column-container>
+          <form onsubmit="postArtist(event)" id="form" >
+            <table class="rwd-table">
+              <tbody>
+                <tr>
+                  <td> 
+                    <label for="artistNameField">Name:</label>
+                  </td>
+                  <td> 
+                    <input type="text" id="artistNameField" name="name" />
+                  </td>
+                </tr>
+                <tr>
+                  <td> 
+                    <label for="artistGenreField">Genre:</label>
+                  </td>
+                  <td> 
+                    <input type="text" id="artistGenreField" name="genre" />
+                  </td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td> 
+                    <input type="submit" value="Submit" class="action-btn-cs">
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+        </form>
+    </main>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+<script src="../js/artists/post-artist.js"></script>
+<script>
+  // immediately invoked function expression - IIFE
+  (async () => {
+
+  })()
+</script>
+</html>
