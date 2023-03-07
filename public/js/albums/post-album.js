@@ -4,19 +4,15 @@ async function postAlbum(event, artist_id) {
   const name = document.getElementById('albumNameField').value;
   const year = document.getElementById('albumYearField').value;
   const cover_image = document.getElementById('albumCoverField').files[0];
-  console.log(cover_image);
 
   const formData = new FormData();
   
   formData.append('name', name);
   formData.append('year', year);
 
-  if(cover_image) {
+  if (cover_image) {
     formData.append('cover_image', cover_image);
   }
-
-  // const jsonData = JSON.stringify(Object.fromEntries(formData));
-  // console.log(jsonData);
 
   const response = await fetch(`http://${window.location.host}/artists/${artist_id}/albums`, {
       method: 'POST',
