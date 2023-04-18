@@ -10,14 +10,26 @@ async function postAlbum(event, artist_id) {
   formData.append('name', name);
   formData.append('year', year);
 
+  let response;
+
   if (cover_image) {
     formData.append('cover_image', cover_image);
-  }
-
-  const response = await fetch(`http://${window.location.host}/artists/${artist_id}/albums`, {
+    response = await fetch(`http://${window.location.host}/artists/${artist_id}/albums`, {
       method: 'POST',
       body: formData
-  })
+    });
+  } else {
+    const jsonData = JSON.stringify(Object.fromEntries(formData));
+
+    response = await fetch(`http://${window.location.host}/artists/${artist_id}/albums`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: jsonData
+    });
+  }
 
   if (!response.ok) {
     window.alert('Oops: Something went wrong :(');

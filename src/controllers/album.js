@@ -7,10 +7,9 @@ const { foreignKeyViolation } = require('../utils/postgres-errors')
 const createAlbum = async (req, res) => {
   const { file } = req
   const { id } = req.params
-  const { name, year } = req.body
+  const { name, year, cover_image } = req.body
 
   try {
-    
     // STEP 5b - Upload image to S3 first, to retrieve the URL to store in the DB
     // const cover_image = ...
 
@@ -22,6 +21,7 @@ const createAlbum = async (req, res) => {
       res.status(404).json({ message: `artist ${id} does not exist` })
       break
     default:
+      console.log(err.message);
       res.status(500).json(err.message)
       break
     }
