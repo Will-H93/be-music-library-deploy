@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/reset.css" />
   <link rel="stylesheet" href="css/index.css" />
-  <link rel="stylesheet" href="css/table.css" />  
+  <link rel="stylesheet" href="css/table.css" />
   <title>Music Library UI</title>
 </head>
+
 <body>
   <nav>
     <h1>Music Library</h1>
@@ -40,7 +42,7 @@
     } else {
       var table = document.createElement("table");
       table.className = "rwd-table";
-       
+
       var tableBody = document.createElement("tbody");
 
       artists.forEach(artist => {
@@ -52,7 +54,7 @@
         const firstColumn = document.createElement('td');
         const artistNameLinkElement = document.createElement('a');
         artistNameLinkElement.text = name;
-        artistNameLinkElement.href = `http://${window.location.host}/html/artist-profile.html?artistId=${id}`
+        artistNameLinkElement.href = `${window.location.origin}/html/artist-profile.html?artistId=${id}`
 
         firstColumn.appendChild(artistNameLinkElement);
 
@@ -63,18 +65,18 @@
         const viewArtistLinkElement = document.createElement('a');
         viewArtistLinkElement.textContent = "View 🔍";
         viewArtistLinkElement.className = "action-btn-cs";
-        viewArtistLinkElement.href = `http://${window.location.host}/html/artist-profile.html?artistId=${id}`
+        viewArtistLinkElement.href = `${window.location.origin}/html/artist-profile.html?artistId=${id}`
 
         const editArtistLinkElement = document.createElement('a');
         editArtistLinkElement.textContent = "Edit ✏️";
         editArtistLinkElement.className = "action-btn-cs";
-        editArtistLinkElement.href = `http://${window.location.host}/html/artist-edit.html?artistId=${id}`
+        editArtistLinkElement.href = `${window.location.origin}/html/artist-edit.html?artistId=${id}`
 
 
         const addAlbumForArtistLinkElement = document.createElement('a');
         addAlbumForArtistLinkElement.textContent = `Add Album +`;
         addAlbumForArtistLinkElement.className = "action-btn-cs";
-        addAlbumForArtistLinkElement.href = `http://${window.location.host}/html/album-add.html?artistId=${id}`
+        addAlbumForArtistLinkElement.href = `${window.location.origin}/html/album-add.html?artistId=${id}`
 
         secondColumn.appendChild(viewArtistLinkElement);
         secondColumn.appendChild(editArtistLinkElement);
@@ -88,10 +90,11 @@
         tableBody.appendChild(artistRowElement);
       });
     }
-    
+
     table.appendChild(tableBody);
 
     container.appendChild(table);
   })()
 </script>
+
 </html>

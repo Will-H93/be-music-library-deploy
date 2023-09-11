@@ -15,13 +15,13 @@ async function postArtist(event) {
   const jsonData = JSON.stringify(Object.fromEntries(formData));
   console.log("JSON:", jsonData)
 
-  const response = await fetch(`http://${window.location.host}/artists`, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: jsonData
+  const response = await fetch(`${window.location.origin}/artists`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: jsonData
   })
 
   const responseBody = await response.json()
@@ -29,6 +29,6 @@ async function postArtist(event) {
   if (!response.ok) {
     window.alert('Oops: Something went wrong :(');
   } else {
-    window.location.replace(`http://${window.location.host}/html/profile.html?artistId=${responseBody.id}`);
+    window.location.replace(`${window.location.origin}/html/profile.html?artistId=${responseBody.id}`);
   }
 }

@@ -15,13 +15,13 @@ async function updateArtist(event, artistId) {
 
   const jsonData = JSON.stringify(Object.fromEntries(formData));
 
-  const response = await fetch(`http://${window.location.host}/artists/${artistId}`, {
-      method: 'PUT',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: jsonData
+  const response = await fetch(`${window.location.origin}/artists/${artistId}`, {
+    method: 'PUT',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: jsonData
   })
 
   const responseBody = await response.json()
@@ -29,6 +29,6 @@ async function updateArtist(event, artistId) {
   if (!response.ok) {
     window.alert('Oops: Something went wrong :(');
   } else {
-    window.location.replace(`http://${window.location.host}/html/profile.html?artistId=${responseBody.id}`);
+    window.location.replace(`${window.location.origin}/html/profile.html?artistId=${responseBody.id}`);
   }
 }

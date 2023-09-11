@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,6 +11,7 @@
   <link rel="stylesheet" href="../css/album-card.css" />
   <title>Music Library UI</title>
 </head>
+
 <body>
   <nav>
     <h1>Music Library</h1>
@@ -52,12 +54,12 @@
       const editArtistLinkElement = document.createElement('a');
       editArtistLinkElement.textContent = "Edit ✏️";
       editArtistLinkElement.className = "action-btn-cs";
-      editArtistLinkElement.href = `http://${window.location.host}/html/artist-edit.html?artistId=${artist.id}`
+      editArtistLinkElement.href = `${window.location.origin}/html/artist-edit.html?artistId=${artist.id}`
 
       const addAlbumForArtistElement = document.createElement('a');
       addAlbumForArtistElement.text = `Add album +`;
       addAlbumForArtistElement.className = `action-btn-cs`;
-      addAlbumForArtistElement.href = `http://${window.location.host}/html/album-add.html?artistId=${artist.id}`
+      addAlbumForArtistElement.href = `${window.location.origin}/html/album-add.html?artistId=${artist.id}`
 
       const deleteArtistLinkElement = document.createElement('a');
       deleteArtistLinkElement.textContent = "Delete";
@@ -80,39 +82,39 @@
         albums.forEach(album => {
 
 
-        const cardItem = document.createElement("div");
-        cardItem.className = "album-card_item";
+          const cardItem = document.createElement("div");
+          cardItem.className = "album-card_item";
 
-        const linkItem = document.createElement("a");
-        linkItem.className = "album_card_item_link";
+          const linkItem = document.createElement("a");
+          linkItem.className = "album_card_item_link";
 
-        const albumCoverElement = document.createElement('img');
-        albumCoverElement.className = "album-cover";
-        albumCoverElement.src = album.cover_image ? album.cover_image : window.location.origin + "/images/album-placeholder.png";
-
-
-        const albumTitleItem = document.createElement("div");
-        albumTitleItem.className = "album-card-item_title";
-        albumTitleItem.textContent = album.name;
+          const albumCoverElement = document.createElement('img');
+          albumCoverElement.className = "album-cover";
+          albumCoverElement.src = album.cover_image ? album.cover_image : window.location.origin + "/images/album-placeholder.png";
 
 
-        const albumDateItem = document.createElement("div");
-        albumDateItem.className = "album-card-item_date-box";
-        albumDateItem.textContent = "Released:";
+          const albumTitleItem = document.createElement("div");
+          albumTitleItem.className = "album-card-item_title";
+          albumTitleItem.textContent = album.name;
 
-        const albumDateReleasedItem = document.createElement("span");
-        albumDateReleasedItem.textContent = album.year;
-        albumDateReleasedItem.className = "album-card-item_date";
-        albumDateItem.appendChild(albumDateReleasedItem);
 
-        
-        cardItem.appendChild(albumCoverElement);
-        cardItem.appendChild(linkItem);
-        cardItem.appendChild(albumTitleItem);
-        cardItem.appendChild(albumDateItem);
+          const albumDateItem = document.createElement("div");
+          albumDateItem.className = "album-card-item_date-box";
+          albumDateItem.textContent = "Released:";
 
-        albumsContainer.appendChild(cardItem);
-         
+          const albumDateReleasedItem = document.createElement("span");
+          albumDateReleasedItem.textContent = album.year;
+          albumDateReleasedItem.className = "album-card-item_date";
+          albumDateItem.appendChild(albumDateReleasedItem);
+
+
+          cardItem.appendChild(albumCoverElement);
+          cardItem.appendChild(linkItem);
+          cardItem.appendChild(albumTitleItem);
+          cardItem.appendChild(albumDateItem);
+
+          albumsContainer.appendChild(cardItem);
+
         });
 
         container.appendChild(albumsContainer);
@@ -123,17 +125,18 @@
         const addAlbumForArtistElement = document.createElement('a');
         addAlbumForArtistElement.text = `Add album +`;
         addAlbumForArtistElement.className = `action-btn-cs`;
-        addAlbumForArtistElement.href = `http://${window.location.host}/html/album-add.html?artistId=${artist.id}`
+        addAlbumForArtistElement.href = `${window.location.origin}/html/album-add.html?artistId=${artist.id}`
 
         container.appendChild(albumsHeaderElement);
         container.appendChild(addAlbumForArtistElement);
       }
 
     } else {
-        var noArtistElement = document.createElement('h1')
-        noArtistElement.text = `${artist.message}`;
-        container.appendChild(noArtistElement)
+      var noArtistElement = document.createElement('h1')
+      noArtistElement.text = `${artist.message}`;
+      container.appendChild(noArtistElement)
     }
   })();
 </script>
+
 </html>
